@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item active">
         <router-link to="/goods" class="active">商品</router-link>
@@ -20,6 +20,9 @@
 
 <script>
   import Header from 'components/header/header'
+  // 返回数据成功状态码
+  const ERR_OK = 0
+
   export default {
     name: 'app',
     components: {
@@ -33,7 +36,10 @@
     created() {
       // 获取seller商家数据
       this.$http.get('/api/seller').then(res => {
-        console.log(res.data)
+        if (res.data.errno === ERR_OK) {
+          this.seller = res.data.data
+          console.log(this.seller)
+        }
       })
     }
   }
