@@ -1,12 +1,11 @@
 <template>
-    <div class="header">
-        i like header
+    <div>
+        i like ratings
     </div>
 </template>
 <script>
-export default {
-
-}
+    export default {
+    }
 </script>
 <style lang="scss" scoped>
 
