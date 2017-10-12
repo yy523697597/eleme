@@ -1,3 +1,9 @@
+/*
+ * @Author: yuyi 
+ * @Date: 2017-10-12 10:47:07 
+ * @Last Modified by:   yuyi 
+ * @Last Modified time: 2017-10-12 10:47:07 
+ */
 <template>
   <div class="header">
     <div class="content-container">
@@ -20,12 +26,45 @@
       <span class="notice-content">{{seller.bulletin}}</span>
       <span class="right-arrow">></span>
     </div>
-    <div class="detail" v-show="detailShow">
-
-    </div>
+    <!-- 使用transition去实现动态过度效果 -->
+    <transition name="slide-fade">
+      <div class="detail" v-show="detailShow">
+        <div class="detail-wrapper">
+          <div class="detail-main">
+            <h1 class="name">{{seller.name}}</h1>
+            <div class="star-wrapper">
+              <star :size="48" :score="seller.score"></star>
+            </div>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+            <ul v-if="seller.supports" class="supports">
+              <li v-for="(item,index) of seller.supports" class="support-item" v-bind:key="index">
+                <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+                <span class="text">{{seller.supports[index].description}}</span>
+              </li>
+            </ul>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+            <div class="bulletin">
+              <p>{{seller.bulletin}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="detail-close" @click="closeDetail">X</div>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
+// 导入star评分组件
+import Star from 'components/star/star'
+
 export default {
   props: {
     seller: {
@@ -45,13 +84,23 @@ export default {
     }
   },
   methods: {
+    // 详情页面的显示
     showDetail() {
       this.detailShow = true
+    },
+    // 详情页面的关闭
+    closeDetail() {
+      this.detailShow = false
     }
+  },
+  components: {
+    // 注册star评分组件
+    Star
   }
 }
 </script>
 <style lang="scss" scoped>
+@import '../../common/scss/mixin.scss';
 .header {
   width: 100%;
   height: 2.68rem;
@@ -131,19 +180,19 @@ export default {
         top: -0.04rem;
         left: 0;
         &.decrease {
-          background-image: url(../../../resource/img/decrease_2@2x.png);
+          @include bg-image('decrease_1');
         }
         &.discount {
-          background-image: url(../../../resource/img/discount_2@2x.png);
+          @include bg-image('discount_1');
         }
         &.guarantee {
-          background-image: url(../../../resource/img/guarantee_2@2x.png);
+          @include bg-image('guarantee_1');
         }
         &.invoice {
-          background-image: url(../../../resource/img/invoice_2@2x.png);
+          @include bg-image('invoice_1');
         }
         &.special {
-          background-image: url(../../../resource/img/special_2@2x.png);
+          @include bg-image('special_1');
         }
       }
     }
@@ -201,10 +250,122 @@ export default {
     top: 0;
     left: 0;
     background-color: rgba(7, 17, 27, .8);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 99;
     width: 100%;
     height: 100%;
     overflow: auto;
+    color: #fff;
+    .detail-wrapper {
+      width: 100%;
+      min-height: 100%;
+      .detail-main {
+        padding-bottom: 1.28rem;
+        padding-top: 1.28rem;
+        .name {
+          margin: 0 auto;
+          font-size: .32rem;
+          font-weight: bold;
+          line-height: .32rem;
+          text-align: center;
+        }
+        .star-wrapper {
+          text-align: center;
+          height: .48rem;
+          line-height: .48rem;
+          padding-top: .04rem;
+        }
+        .title {
+          display: flex;
+          width: 80%;
+          margin: .6rem auto .56rem auto;
+          .line {
+            flex: 1;
+            position: relative;
+            top: -.12rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .2);
+          }
+          .text {
+            font-size: .28rem;
+            padding: 0 .24rem;
+            font-weight: 700;
+          }
+        }
+        .supports {
+          width: 80%;
+          margin: 0 auto;
+          .support-item {
+            padding: 0 .24rem;
+            margin-bottom: .24rem;
+            font-size: 0;
+            &::last-child {
+              margin-bottom: 0;
+            }
+            .icon {
+              display: inline-block;
+              width: .32rem;
+              height: .32rem;
+              vertical-align: top;
+              margin-right: .12rem;
+              background-size: .24rem;
+              background-repeat: no-repeat;
+              &.decrease {
+                @include bg-image('decrease_2');
+              }
+              &.discount {
+                @include bg-image('discount_2');
+              }
+              &.guarantee {
+                @include bg-image('guarantee_2');
+              }
+              &.invoice {
+                @include bg-image('invoice_2');
+              }
+              &.special {
+                @include bg-image('special_2');
+              }
+            }
+            .text {
+              font-size: .24rem;
+              color: #fff;
+              line-height: .24rem;
+            }
+          }
+        }
+        .bulletin {
+          width: 80%;
+          margin: -.16rem auto 0;
+          font-weight: 200;
+          line-height: .48rem;
+          font-size: .24rem;
+        }
+      }
+    }
+    .detail-close {
+      position: relative;
+      width: .64rem;
+      height: .64rem;
+      margin: -1.28rem auto .64rem;
+      clear: both;
+      font-size: .64rem;
+    }
   }
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */
+
+{
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
