@@ -14,7 +14,7 @@
         <span class="description">{{seller.description}} / {{seller.deliveryTime}}分钟送达</span>
         <div class="discount-container">
           <!-- 通过type去动态的获取class值，从而显示不同的背景图片 -->
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+          <span class="icon" :class="classMap[seller.supports[0].type]" v-if="seller.supports[0]"></span>
           <!-- 使用v-if来避免报错 -->
           <span class="supports" v-if="seller.supports">{{seller.supports[0].description}}</span>
         </div>
