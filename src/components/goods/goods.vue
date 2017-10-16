@@ -2,7 +2,7 @@
   <div class="goods-container">
     <div class="menu-container" ref="menuContainer">
       <ul>
-        <li v-for="(item,index) of goods" :key="index" class="menu-item" :class="{'current':currentIndex===index}">
+        <li v-for="(item,index) of goods" :key="index" class="menu-item" :class="{'current':currentIndex===index}" @click="_selectMenu(index)" ref="menuList">
           <span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>
           <span class="text"> {{item.name}}</span>
         </li>
@@ -81,7 +81,10 @@ export default {
   methods: {
     // 初始化scroll组件
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.menuContainer, {})
+      this.menuScroll = new BScroll(this.$refs.menuContainer, {
+        // better-scroll默认不会触发click事件，所以需要在这里设置为true来手动开启
+        click: true
+      })
       this.foodsScroll = new BScroll(this.$refs.foodsContainer, {
         // 实时传递Y值
         probeType: 3
@@ -106,12 +109,19 @@ export default {
         height += item.clientHeight
         this.listHeight.push(height)
       }
+    },
+    // 左侧菜单点击事件
+    _selectMenu(index) {
+      let foodsList = this.$refs.foodsList
+      let el = foodsList[index]
+      // scrollToElement方法滚动到指定元素的位置
+      this.foodsScroll.scrollToElement(el, 300)
     }
   },
   data() {
     return {
       goods: [],
-      // 用于goods中每一个菜单的右侧高度存储的数组
+      // 用于存储右侧详情栏目中每一个项目的高度
       listHeight: [],
       scrollY: 0
     }
