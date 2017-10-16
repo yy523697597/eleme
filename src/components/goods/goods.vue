@@ -2,7 +2,7 @@
   <div class="goods-container">
     <div class="menu-container" ref="menuContainer">
       <ul>
-        <li v-for="(item,index) of goods" :key="index" class="menu-item">
+        <li v-for="(item,index) of goods" :key="index" class="menu-item" :class="{'current':currentIndex===index}">
           <span v-show="item.type > 0" class="icon" :class="classMap[item.type]"></span>
           <span class="text"> {{item.name}}</span>
         </li>
@@ -10,7 +10,7 @@
     </div>
     <div class="foods-container" ref="foodsContainer">
       <ul>
-        <li v-for="(item,index) of goods" :key="index" class="foods-wrapper">
+        <li v-for="(item,index) of goods" :key="index" class="foods-wrapper" ref="foodsList">
           <h2 class="foods-title">{{item.name}}</h2>
           <ul>
             <li v-for="(food,index) of item.foods" :key="index" class="food-item">
@@ -58,21 +58,62 @@ export default {
       this.$nextTick(() => {
         // 涉及到DOM元素的操作，需要在nextTick方法中初始化，而不能在created中初始化
         this._initScroll()
+
+        // 计算每一个菜单中子元素的总高度
+        this._calculateHeight()
       })
     })
   },
-  mounted() {
-
+  computed: {
+    currentIndex() {
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height1 = this.listHeight[i]
+        let height2 = this.listHeight[i + 1]
+        // 做容错处理，如果是最后一个元素，直接返回i
+        // 在这里不能写  A<=B<C这种，必须分开写成 A <= B && B < C
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          return i
+        }
+      }
+      return 0
+    }
   },
   methods: {
+    // 初始化scroll组件
     _initScroll() {
       this.menuScroll = new BScroll(this.$refs.menuContainer, {})
-      this.foodsScroll = new BScroll(this.$refs.foodsContainer, {})
+      this.foodsScroll = new BScroll(this.$refs.foodsContainer, {
+        // 实时传递Y值
+        probeType: 3
+      })
+      // 监听滚动事件
+      this.foodsScroll.on('scroll', (pos) => {
+        // 避免在听不得时候下拉刷新，导致左右列表不同步的错误
+        if (pos.y <= 0) {
+          this.scrollY = Math.abs(Math.round(pos.y))
+        }
+      })
+    },
+    // 计算组件高度
+    _calculateHeight() {
+      const foodList = this.$refs.foodsList
+      let height = 0
+      // 先添加一次0的位置，不然初始化的时候左右两侧分类不同步
+      this.listHeight.push(height)
+
+      // 依次将菜单的高度添加到数组中
+      for (let item of foodList) {
+        height += item.clientHeight
+        this.listHeight.push(height)
+      }
     }
   },
   data() {
     return {
-      goods: []
+      goods: [],
+      // 用于goods中每一个菜单的右侧高度存储的数组
+      listHeight: [],
+      scrollY: 0
     }
   }
 }
@@ -92,6 +133,14 @@ export default {
     flex: 0 0 1.6rem;
     width: 1.6rem;
     background-color: #f3f5f7;
+    .current {
+      background-color: #fff;
+      color: red;
+      font-weight: 700;
+      line-height: .28rem;
+      margin-top: -1px;
+      border-bottom: none;
+    }
     .menu-item {
       display: table;
       margin: 0 auto;
@@ -135,6 +184,8 @@ export default {
   }
   .foods-container {
     flex: 1;
+
+
     .foods-title {
       padding-left: .28rem;
       background-color: #f3f5f7;
