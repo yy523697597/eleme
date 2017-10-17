@@ -34,11 +34,14 @@
         </li>
       </ul>
     </div>
+    <cart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></cart>
   </div>
 </template>
 <script>
 // 导入better-scroll
 import BScroll from 'better-scroll'
+// 导入购物车组件
+import Cart from 'components/cart/cart'
 
 const ERR_OK = 0
 export default {
@@ -125,11 +128,15 @@ export default {
       listHeight: [],
       scrollY: 0
     }
+  },
+  components: {
+    Cart
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../common/scss/mixin.scss';
+@import '../../common/scss/icon.scss';
 
 .goods-container {
   display: flex;
