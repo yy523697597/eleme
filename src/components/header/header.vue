@@ -1,8 +1,8 @@
 /*
  * @Author: yuyi 
  * @Date: 2017-10-12 10:47:07 
- * @Last Modified by:   yuyi 
- * @Last Modified time: 2017-10-12 10:47:07 
+ * @Last Modified by: yuyi
+ * @Last Modified time: 2017-10-20 14:42:41
  */
 <template>
   <div class="header">
@@ -39,7 +39,7 @@
               <div class="line"></div>
               <div class="text">优惠信息</div>
               <div class="line"></div>
-            </div>
+            </div> 
             <ul v-if="seller.supports" class="supports">
               <li v-for="(item,index) of seller.supports" class="support-item" v-bind:key="index">
                 <span class="icon" :class="classMap[seller.supports[index].type]"></span>
@@ -63,7 +63,7 @@
 </template>
 <script>
 // 导入star评分组件
-import Star from 'components/star/star'
+import Star from "components/star/star";
 
 export default {
   props: {
@@ -75,46 +75,46 @@ export default {
     }
   },
   created() {
-    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
   data() {
     return {
       classMap: [],
       detailShow: false
-    }
+    };
   },
   methods: {
     // 详情页面的显示
     showDetail() {
-      this.detailShow = true
+      this.detailShow = true;
     },
     // 详情页面的关闭
     closeDetail() {
-      this.detailShow = false
+      this.detailShow = false;
     }
   },
   components: {
     // 注册star评分组件
     Star
   }
-}
+};
 </script>
 <style lang="scss" scoped>
-@import '../../common/scss/mixin.scss';
+@import "../../common/scss/mixin.scss";
 .header {
   width: 100%;
   height: 2.68rem;
   position: relative;
   overflow: hidden;
   &::after {
-    content: ' ';
+    content: " ";
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
     margin: auto;
-    background-color: rgba(7, 17, 27, .5)
+    background-color: rgba(7, 17, 27, 0.5);
   }
   .blur {
     position: absolute;
@@ -128,31 +128,31 @@ export default {
     width: 1.28rem;
     height: 1.28rem;
     position: absolute;
-    top: .48rem;
-    left: .48rem;
-    border-radius: .04rem;
+    top: 0.48rem;
+    left: 0.48rem;
+    border-radius: 0.04rem;
     z-index: 1;
   }
   .content {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: .48rem;
+    top: 0.48rem;
     left: 2.08rem;
     justify-content: space-around;
     height: 1.28rem;
     color: #fff;
     z-index: 1;
     .store-name {
-      padding-left: .72rem;
-      padding-top: .04rem;
-      font-size: .32rem;
+      padding-left: 0.72rem;
+      padding-top: 0.04rem;
+      font-size: 0.32rem;
       font-weight: bold;
-      line-height: .36rem;
+      line-height: 0.36rem;
       &::before {
-        content: ' ';
-        width: .6rem;
-        height: .36rem;
+        content: " ";
+        width: 0.6rem;
+        height: 0.36rem;
         position: absolute;
         top: 0.08rem;
         left: 0;
@@ -161,87 +161,87 @@ export default {
       }
     }
     .description {
-      font-size: .24rem;
+      font-size: 0.24rem;
       font-weight: 200;
       color: #fff;
-      left: .24rem;
+      left: 0.24rem;
     }
     .discount-container {
-      padding-left: .32rem;
-      font-size: .2rem;
-      line-height: .24rem;
+      padding-left: 0.32rem;
+      font-size: 0.2rem;
+      line-height: 0.24rem;
       font-weight: 200;
       position: relative;
       .icon {
-        width: .24rem;
-        height: .24rem;
+        width: 0.24rem;
+        height: 0.24rem;
         position: absolute;
         background-size: cover;
         top: -0.04rem;
         left: 0;
         &.decrease {
-          @include bg-image('decrease_1');
+          @include bg-image("decrease_1");
         }
         &.discount {
-          @include bg-image('discount_1');
+          @include bg-image("discount_1");
         }
         &.guarantee {
-          @include bg-image('guarantee_1');
+          @include bg-image("guarantee_1");
         }
         &.invoice {
-          @include bg-image('invoice_1');
+          @include bg-image("invoice_1");
         }
         &.special {
-          @include bg-image('special_1');
+          @include bg-image("special_1");
         }
       }
     }
   }
   .count {
     color: #fff;
-    font-size: .2rem;
-    height: .48rem;
-    line-height: .48rem;
+    font-size: 0.2rem;
+    height: 0.48rem;
+    line-height: 0.48rem;
     text-align: center;
-    border-radius: .24rem;
-    background-color: rgba(0, 0, 0, .2);
-    padding: 0 .28rem;
+    border-radius: 0.24rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0 0.28rem;
     position: absolute;
-    bottom: .88rem;
-    right: .24rem;
+    bottom: 0.88rem;
+    right: 0.24rem;
     z-index: 1;
   }
   .notice-container {
     width: 100%;
-    height: .56rem;
+    height: 0.56rem;
     display: flex;
     justify-content: space-around;
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, 0.2);
     font-size: 0;
     z-index: 1;
     .notice-img {
-      width: .44rem;
-      height: .24rem;
-      margin-top: .16rem;
+      width: 0.44rem;
+      height: 0.24rem;
+      margin-top: 0.16rem;
     }
     .notice-content {
       width: 6.24rem;
       color: #fff;
-      font-size: .2rem;
+      font-size: 0.2rem;
       text-overflow: ellipsis;
-      line-height: .62rem;
-      height: .56rem;
+      line-height: 0.62rem;
+      height: 0.56rem;
       white-space: nowrap;
       overflow: hidden;
       vertical-align: top;
     }
     .right-arrow {
       color: #fff;
-      font-size: .2rem;
-      line-height: .62rem;
+      font-size: 0.2rem;
+      line-height: 0.62rem;
       vertical-align: top;
     }
   }
@@ -249,7 +249,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(7, 17, 27, .8);
+    background-color: rgba(7, 17, 27, 0.8);
     -webkit-backdrop-filter: blur(10px);
     z-index: 99;
     width: 100%;
@@ -264,30 +264,30 @@ export default {
         padding-top: 1.28rem;
         .name {
           margin: 0 auto;
-          font-size: .32rem;
+          font-size: 0.32rem;
           font-weight: bold;
-          line-height: .32rem;
+          line-height: 0.32rem;
           text-align: center;
         }
         .star-wrapper {
           text-align: center;
-          height: .48rem;
-          line-height: .48rem;
-          padding-top: .04rem;
+          height: 0.48rem;
+          line-height: 0.48rem;
+          padding-top: 0.04rem;
         }
         .title {
           display: flex;
           width: 80%;
-          margin: .6rem auto .56rem auto;
+          margin: 0.6rem auto 0.56rem auto;
           .line {
             flex: 1;
             position: relative;
-            top: -.12rem;
-            border-bottom: 1px solid rgba(255, 255, 255, .2);
+            top: -0.12rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           }
           .text {
-            font-size: .28rem;
-            padding: 0 .24rem;
+            font-size: 0.28rem;
+            padding: 0 0.24rem;
             font-weight: 700;
           }
         }
@@ -295,76 +295,73 @@ export default {
           width: 80%;
           margin: 0 auto;
           .support-item {
-            padding: 0 .24rem;
-            margin-bottom: .24rem;
+            padding: 0 0.24rem;
+            margin-bottom: 0.24rem;
             font-size: 0;
             &::last-child {
               margin-bottom: 0;
             }
             .icon {
               display: inline-block;
-              width: .32rem;
-              height: .32rem;
+              width: 0.32rem;
+              height: 0.32rem;
               vertical-align: top;
-              margin-right: .12rem;
-              background-size: .24rem;
+              margin-right: 0.12rem;
+              background-size: 0.24rem;
               background-repeat: no-repeat;
               &.decrease {
-                @include bg-image('decrease_2');
+                @include bg-image("decrease_2");
               }
               &.discount {
-                @include bg-image('discount_2');
+                @include bg-image("discount_2");
               }
               &.guarantee {
-                @include bg-image('guarantee_2');
+                @include bg-image("guarantee_2");
               }
               &.invoice {
-                @include bg-image('invoice_2');
+                @include bg-image("invoice_2");
               }
               &.special {
-                @include bg-image('special_2');
+                @include bg-image("special_2");
               }
             }
             .text {
-              font-size: .24rem;
+              font-size: 0.24rem;
               color: #fff;
-              line-height: .24rem;
+              line-height: 0.24rem;
             }
           }
         }
         .bulletin {
           width: 80%;
-          margin: -.16rem auto 0;
+          margin: -0.16rem auto 0;
           font-weight: 200;
-          line-height: .48rem;
-          font-size: .24rem;
+          line-height: 0.48rem;
+          font-size: 0.24rem;
         }
       }
     }
     .detail-close {
       position: relative;
-      width: .64rem;
-      height: .64rem;
-      margin: -1.28rem auto .64rem;
+      width: 0.64rem;
+      height: 0.64rem;
+      margin: -1.28rem auto 0.64rem;
       clear: both;
-      font-size: .64rem;
+      font-size: 0.64rem;
     }
   }
 }
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .slide-fade-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter,
-.slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */
-
-{
+.slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
 }

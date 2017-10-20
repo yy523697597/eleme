@@ -36,72 +36,72 @@ export default {
     selectFoods: {
       type: Array,
       default() {
-        return []
+        return [];
       }
     }
   },
   computed: {
     // 计算总价
     totalPrice() {
-      let total = 0
-      this.selectFoods.forEach((food) => {
-        total += food.price * food.count
-      })
-      return total
+      let total = 0;
+      this.selectFoods.forEach(food => {
+        total += food.price * food.count;
+      });
+      return total;
     },
     // 计算商品总数
     totalCount() {
-      let count = 0
-      this.selectFoods.forEach((food) => {
-        count += food.count
-      })
-      return count
+      let count = 0;
+      this.selectFoods.forEach(food => {
+        count += food.count;
+      });
+      return count;
     },
     // 购物车结算消息描述
     payDesc() {
       if (this.totalPrice === 0) {
-        return `￥${this.minPrice}元起送`
+        return `￥${this.minPrice}元起送`;
       } else if (this.totalPrice < this.minPrice) {
-        let diff = this.minPrice - this.totalPrice
-        return `还差￥${diff}元起送`
+        let diff = this.minPrice - this.totalPrice;
+        return `还差￥${diff}元起送`;
       } else {
-        return '去结算'
+        return "去结算";
       }
     },
     // 配送提示样式
     payClass() {
       if (this.totalPrice < this.minPrice) {
-        return 'no-enough'
+        return "no-enough";
       } else {
-        return 'enough'
+        return "enough";
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
-@import '../../common/scss/icon.scss';
+@import "../../common/scss/icon.scss";
 .cart {
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 50;
   width: 100%;
-  height: .96rem;
+  height: 0.96rem;
   background-color: #141d27;
   .content {
     display: flex;
-    height: .96rem;
-    color: rgba(255, 255, 255, .4);
+    height: 0.96rem;
+    color: rgba(255, 255, 255, 0.4);
     .content-left {
       flex: 1;
       font-size: 0;
       .logo-wrapper {
         display: inline-block;
         position: relative;
-        top: -.2rem;
-        margin: 0 .24rem;
-        padding: .12rem;
+        top: -0.2rem;
+        margin: 0 0.24rem;
+        padding: 0.12rem;
         height: 1.12rem;
         width: 1.12rem;
         box-sizing: border-box;
@@ -114,13 +114,13 @@ export default {
           vertical-align: top;
           border-radius: 50%;
           background-color: #2b343c;
-          line-height: .88rem;
+          line-height: 0.88rem;
           text-align: center;
           .icon-shopping_cart {
-            font-size: .48rem;
+            font-size: 0.48rem;
             color: #80858a;
             position: relative;
-            top: .2rem;
+            top: 0.2rem;
             &.active {
               color: #fff;
             }
@@ -132,38 +132,38 @@ export default {
         .count {
           position: absolute;
           background-color: rgb(240, 20, 20);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
           top: 0;
           right: 0;
-          width: .48rem;
-          height: .32rem;
-          line-height: .32rem;
+          width: 0.48rem;
+          height: 0.32rem;
+          line-height: 0.32rem;
           text-align: center;
-          border-radius: .32rem;
+          border-radius: 0.32rem;
           color: #fff;
-          font-size: .18rem;
+          font-size: 0.18rem;
           font-weight: 700;
         }
       }
       .price {
         display: inline-block;
-        font-size: .32rem;
-        line-height: .48rem;
+        font-size: 0.32rem;
+        line-height: 0.48rem;
         box-sizing: border-box;
-        border-right: 1px solid rgba(255, 255, 255, .1);
-        font-size: .32rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.32rem;
         font-weight: 700;
         vertical-align: top;
-        padding-right: .24rem;
-        margin: .24rem .24rem 0 0;
+        padding-right: 0.24rem;
+        margin: 0.24rem 0.24rem 0 0;
         &.active {
           color: #fff;
         }
       }
       .desc {
         display: inline-block;
-        line-height: .96rem;
-        font-size: .24rem;
+        line-height: 0.96rem;
+        font-size: 0.24rem;
         height: 100%;
       }
     }
@@ -173,13 +173,13 @@ export default {
       .pay {
         height: 100%;
         width: 2.1rem;
-        line-height: .96rem;
-        font-size: .24rem;
+        line-height: 0.96rem;
+        font-size: 0.24rem;
         text-align: center;
-        background-color: #2B333B;
+        background-color: #2b333b;
         font-weight: 700;
         &.not-enough {
-          background-color: #2B333B;
+          background-color: #2b333b;
         }
         &.enough {
           background-color: #00b43c;

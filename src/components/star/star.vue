@@ -1,23 +1,23 @@
 /*
  * @Author: yuyi 
  * @Date: 2017-10-12 10:49:25 
- * @Last Modified by:   yuyi 
- * @Last Modified time: 2017-10-12 10:49:25 
+ * @Last Modified by: yuyi
+ * @Last Modified time: 2017-10-20 14:42:17
  */
 <template>
   <div class="star-container" :class="starType">
-    <span v-for="(itemClass,index) of itemClasses" :class="itemClass" class="star-item" :key="index"></span>
+    <span v-for="(itemClass,index) of itemClasses" :class="itemClass"  class="star-item" :key="index"></span>
   </div>
 </template>
 <script>
 // star数量
-const LENGTH = 5
+const LENGTH = 5;
 // 实心样式
-const CLS_ON = 'on'
+const CLS_ON = "on";
 // 半星样式
-const CLS_HALF = 'half'
+const CLS_HALF = "half";
 // 空心样式
-const CLS_OFF = 'off'
+const CLS_OFF = "off";
 
 export default {
   props: {
@@ -31,38 +31,38 @@ export default {
   computed: {
     // 通过不同的size，去设置不同的样式
     starType() {
-      return 'star-' + this.size
+      return "star-" + this.size;
     },
     // 计算star的样式
     itemClasses() {
-      let result = []
+      let result = [];
       // 处理评分
-      const score = Math.floor(this.score * 2) / 2
+      const score = Math.floor(this.score * 2) / 2;
       // 判断小数
-      const hasDecimal = score % 1 !== 0
+      const hasDecimal = score % 1 !== 0;
       // 获取整数
-      const integer = Math.floor(score)
+      const integer = Math.floor(score);
       // 先添加实心的星星
       for (let i = 0; i < integer; i++) {
-        result.push(CLS_ON)
+        result.push(CLS_ON);
       }
       // 添加半星
       if (hasDecimal) {
-        result.push(CLS_HALF)
+        result.push(CLS_HALF);
       }
       // 添加空心
       while (result.length < LENGTH) {
-        result.push(CLS_OFF)
+        result.push(CLS_OFF);
       }
       // 返回数组
-      return result
+      return result;
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 // 导入mixin
-@import '../../common/scss/mixin.scss';
+@import "../../common/scss/mixin.scss";
 
 .star-container {
   .star-item {
@@ -71,61 +71,61 @@ export default {
   }
   &.star-48 {
     .star-item {
-      width: .4rem;
-      height: .4rem;
-      margin-right: .44rem;
-      background-size: .4rem .4rem;
+      width: 0.4rem;
+      height: 0.4rem;
+      margin-right: 0.44rem;
+      background-size: 0.4rem 0.4rem;
       &:last-child {
         margin-right: 0;
       }
       &.on {
-        @include bg-image('star48_on')
+        @include bg-image("star48_on");
       }
       &.half {
-        @include bg-image('star48_half')
+        @include bg-image("star48_half");
       }
       &.off {
-        @include bg-image('star48_off')
+        @include bg-image("star48_off");
       }
     }
   }
   &.star-36 {
     .star-item {
-      width: .3rem;
-      height: .3rem;
-      margin-right: .32rem;
-      background-size: .3rem .3rem;
+      width: 0.3rem;
+      height: 0.3rem;
+      margin-right: 0.32rem;
+      background-size: 0.3rem 0.3rem;
       &:last-child {
         margin-right: 0;
       }
       &.on {
-        @include bg-image('star36_on')
+        @include bg-image("star36_on");
       }
       &.half {
-        @include bg-image('star36_half')
+        @include bg-image("star36_half");
       }
       &.off {
-        @include bg-image('star36_off')
+        @include bg-image("star36_off");
       }
     }
   }
   &.star-24 {
     .star-item {
-      width: .2rem;
-      height: .2rem;
-      margin-right: .6rem;
-      background-size: .2rem .2rem;
+      width: 0.2rem;
+      height: 0.2rem;
+      margin-right: 0.6rem;
+      background-size: 0.2rem 0.2rem;
       &:last-child {
         margin-right: 0;
       }
       &.on {
-        @include bg-image('star24_on')
+        @include bg-image("star24_on");
       }
       &.half {
-        @include bg-image('star24_half')
+        @include bg-image("star24_half");
       }
       &.off {
-        @include bg-image('star24_off')
+        @include bg-image("star24_off");
       }
     }
   }
