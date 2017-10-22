@@ -33,7 +33,7 @@ export default {
       type: Number
     },
     // 用户选择的商品数组
-    selectFoods: {
+    selectGoods: {
       type: Array,
       default() {
         return [];
@@ -44,15 +44,15 @@ export default {
     // 计算总价
     totalPrice() {
       let total = 0;
-      this.selectFoods.forEach(food => {
-        total += food.price * food.count;
+      this.selectGoods.forEach(foodItem => {
+        total += foodItem.food.price * foodItem.count;
       });
       return total;
     },
     // 计算商品总数
     totalCount() {
       let count = 0;
-      this.selectFoods.forEach(food => {
+      this.selectGoods.forEach(food => {
         count += food.count;
       });
       return count;
