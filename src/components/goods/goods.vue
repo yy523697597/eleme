@@ -1,3 +1,9 @@
+/*
+ * @Author: yuyi 
+ * @Date: 2017-10-24 16:44:02 
+ * @Last Modified by:   yuyi 
+ * @Last Modified time: 2017-10-24 16:44:02 
+ */
 <template>
   <div class="goods-container">
     <div class="menu-container" ref="menuContainer">
@@ -29,7 +35,7 @@
                   <span v-if="food.oldPrice" class="oldprice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food" @addFood="addFood" @decreaseFood="decreaseFood"></cartcontrol>
+                  <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -37,7 +43,7 @@
         </li>
       </ul>
     </div>
-    <cart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectGoods="selectGoods"></cart>
+    <cart ref="cart" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectGoods="selectGoods"></cart>
   </div>
 </template>
 <script>
@@ -83,6 +89,17 @@ export default {
         }
       }
       return 0;
+    },
+    selectGoods() {
+      let foods = [];
+      for (let good of this.goods) {
+        for (let food of good.foods) {
+          if (food.count) {
+            foods.push(food);
+          }
+        }
+      }
+      return foods;
     }
   },
   methods: {
@@ -125,45 +142,49 @@ export default {
       // scrollToElement方法滚动到指定元素的位置
       this.foodsScroll.scrollToElement(el, 300);
     },
-    // 点击添加商品
-    addFood(foodItem) {
-      // 用于判断用户添加的商品是否存在
-      let flag = false;
-      if (this.selectGoods.length === 0) {
-        // 如果用户选择商品数组为空就直接添加商品
-        this.selectGoods.push(foodItem);
-      } else {
-        this.selectGoods.forEach(good => {
-          if (foodItem.food.name === good.food.name) {
-            // 如果已经存在这个商品就更新数据，并且将flag设置为tru，表明商品已经存在
-            good = foodItem;
-            flag = true;
-          }
-        });
-        // 如果flag在循环后仍然为false，表明此商品不存在与数组中，需要进行添加
-        if (flag === false) {
-          this.selectGoods.push(foodItem);
-        }
-      }
-    },
-    // 点击减少商品
-    decreaseFood(foodItem) {
-      this.selectGoods.forEach(good => {
-        if (foodItem.food.name === good.food.name) {
-          // 如果已经存在这个商品就更新数据
-          good = foodItem;
-        }
-      });
+    // 调用小球掉落动画
+    _drop(target) {
+      // 在父组件中调用子组件的方法
+      // this.$refs.cart.drop(target);
     }
+    // // 点击添加商品
+    // addFood(foodItem, target) {
+    //   this._drop(target);
+    //   // 用于判断用户添加的商品是否存在
+    //   let flag = false;
+    //   if (this.selectGoods.length === 0) {
+    //     // 如果用户选择商品数组为空就直接添加商品
+    //     this.selectGoods.push(foodItem);
+    //   } else {
+    //     this.selectGoods.forEach(good => {
+    //       if (foodItem.food.name === good.food.name) {
+    //         // 如果已经存在这个商品就更新数据，并且将flag设置为tru，表明商品已经存在
+    //         good = foodItem;
+    //         flag = true;
+    //       }
+    //     });
+    //     // 如果flag在循环后仍然为false，表明此商品不存在与数组中，需要进行添加
+    //     if (flag === false) {
+    //       this.selectGoods.push(foodItem);
+    //     }
+    //   }
+    // }
+    // // 点击减少商品
+    // decreaseFood(foodItem) {
+    //   this.selectGoods.forEach(good => {
+    //     if (foodItem.food.name === good.food.name) {
+    //       // 如果已经存在这个商品就更新数据
+    //       good = foodItem;
+    //     }
+    //   });
+    // }
   },
   data() {
     return {
       goods: [],
       // 用于存储右侧详情栏目中每一个项目的高度
       listHeight: [],
-      scrollY: 0,
-      // 用户选择的商品数组
-      selectGoods: []
+      scrollY: 0
     };
   },
   components: {

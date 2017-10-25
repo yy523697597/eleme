@@ -1,42 +1,44 @@
+/*
+ * @Author: yuyi 
+ * @Date: 2017-10-24 16:43:55 
+ * @Last Modified by:   yuyi 
+ * @Last Modified time: 2017-10-24 16:43:55 
+ */
 <template>
   <div class="cartcontrol">
       
       <transition  name="move">
-          <div class="cart-decrease " v-show="foodItem.count>0" @click="decreaseCount">
+          <div class="cart-decrease " v-show="food.count>0" @click="decreaseCount">
               <span class="inner icon-remove_circle_outline"></span>
           </div>
       </transition>
-      <div class="cart-count" v-show="foodItem.count>0">{{foodItem.count}}</div>
+      <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
       <div class="cart-add  icon-add_circle" @click="addCount"></div>
   </div>
 </template>
 <script>
-// import Vue from "vue";
+import Vue from "vue";
 export default {
   props: {
     food: {
       type: Object
     }
   },
-  created() {
-    // console.log(this.food);
-  },
-  data() {
-    return {
-      foodItem: {
-        food: this.food,
-        count: 0
-      }
-    };
-  },
   methods: {
-    addCount() {
-      this.foodItem.count++;
-      this.$emit("addFood", this.foodItem);
+    addCount(event) {
+      if (!this.food.count) {
+        // 使用Vue.set去给data中的对象添加不存在的属性
+        Vue.set(this.food, "count", 1);
+      } else {
+        this.food.count++;
+      }
+      this.$emit("addFood", this.food, event.target);
     },
     decreaseCount() {
-      this.foodItem.count--;
-      this.$emit("decreaseFood", this.foodItem);
+      if (this.food.count) {
+        this.food.count--;
+      }
+      // this.$emit("decreaseFood", this.foodItem);
     }
   }
 };
@@ -91,8 +93,6 @@ export default {
     vertical-align: top;
     width: 0.12rem;
     text-align: center;
-  }
-  .cart-decrease {
   }
 }
 </style>
