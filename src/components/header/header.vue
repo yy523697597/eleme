@@ -2,7 +2,7 @@
  * @Author: yuyi 
  * @Date: 2017-10-12 10:47:07 
  * @Last Modified by: yuyi
- * @Last Modified time: 2017-10-20 14:42:41
+ * @Last Modified time: 2017-10-25 15:56:59
  */
 <template>
   <div class="header">
@@ -362,7 +362,7 @@ export default {
 
 .slide-fade-enter,
 .slide-fade-leave-to {
-  transform: translateX(10px);
+  transform: translate3d(10px, 0, 0);
   opacity: 0;
 }
 </style>

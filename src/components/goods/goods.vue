@@ -1,8 +1,8 @@
 /*
  * @Author: yuyi 
  * @Date: 2017-10-24 16:44:02 
- * @Last Modified by:   yuyi 
- * @Last Modified time: 2017-10-24 16:44:02 
+ * @Last Modified by: yuyi
+ * @Last Modified time: 2017-10-25 15:56:28
  */
 <template>
   <div class="goods-container">
@@ -16,10 +16,10 @@
     </div>
     <div class="foods-container" ref="foodsContainer">
       <ul>
-        <li v-for="(item,index) of goods" :key="index" class="foods-wrapper" ref="foodsList">
+        <li v-for="(item,index) of goods" :key="index" class="foods-wrapper" ref="foodsList" >
           <h2 class="foods-title">{{item.name}}</h2>
           <ul>
-            <li v-for="(food,index) of item.foods" :key="index" class="food-item">
+            <li v-for="(food,index) of item.foods" :key="index" class="food-item" @click="selectFood(food,$event)">
               <div class="food-icon">
                 <img :src="food.icon">
               </div>
@@ -44,6 +44,9 @@
       </ul>
     </div>
     <cart ref="cart" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectGoods="selectGoods"></cart>
+  
+    <food :food="selectedFood" ref="food"></food>
+
   </div>
 </template>
 <script>
@@ -53,6 +56,9 @@ import BScroll from "better-scroll";
 import Cart from "components/cart/cart";
 // 导入购物车控制组件
 import Cartcontrol from "components/cartcontrol/cartcontrol";
+// 导入商品详情页
+import Food from "components/food/food";
+
 const ERR_OK = 0;
 export default {
   props: {
@@ -142,6 +148,12 @@ export default {
       // scrollToElement方法滚动到指定元素的位置
       this.foodsScroll.scrollToElement(el, 300);
     },
+    // 用户点击商品事件
+    selectFood(food, event) {
+      this.selectedFood = food;
+      // 展示商品详情页
+      this.$refs.food.show();
+    },
     // 调用小球掉落动画
     _drop(target) {
       // 在父组件中调用子组件的方法
@@ -184,12 +196,15 @@ export default {
       goods: [],
       // 用于存储右侧详情栏目中每一个项目的高度
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      // 用户点击的商品对象
+      selectedFood: {}
     };
   },
   components: {
     Cart,
-    Cartcontrol
+    Cartcontrol,
+    Food
   }
 };
 </script>
