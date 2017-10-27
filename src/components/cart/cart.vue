@@ -122,7 +122,7 @@ export default {
       if (this.totalPrice < this.minPrice) {
         return;
       }
-      window.alert(`支付${this.totalPrice}元`);
+      window.alert(`支付${this.totalPrice + this.deliveryPrice}元`);
     }
 
     // // 处理小球掉落动画
