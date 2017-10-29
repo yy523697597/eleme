@@ -2,7 +2,7 @@
  * @Author: yuyi 
  * @Date: 2017-10-12 10:49:25 
  * @Last Modified by: yuyi
- * @Last Modified time: 2017-10-20 14:42:17
+ * @Last Modified time: 2017-10-29 12:45:01
  */
 <template>
   <div class="star-container" :class="starType">
@@ -93,7 +93,7 @@ export default {
     .star-item {
       width: 0.3rem;
       height: 0.3rem;
-      margin-right: 0.32rem;
+      margin-right: 0.14rem;
       background-size: 0.3rem 0.3rem;
       &:last-child {
         margin-right: 0;
@@ -113,7 +113,7 @@ export default {
     .star-item {
       width: 0.2rem;
       height: 0.2rem;
-      margin-right: 0.6rem;
+      margin-right: 0.06rem;
       background-size: 0.2rem 0.2rem;
       &:last-child {
         margin-right: 0;

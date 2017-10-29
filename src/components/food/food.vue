@@ -67,7 +67,7 @@ import BScroll from "better-scroll";
 import Cartcontrol from "components/cartcontrol/cartcontrol";
 // 导入分割组件
 import Split from "components/split/split";
-// 导入分割组件
+// 导入评分选择组件
 import RatingSelect from "components/ratingSelect/ratingSelect";
 // 导入格式化时间js
 import { formatDate } from "common/js/date";
