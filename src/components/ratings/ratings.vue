@@ -91,7 +91,6 @@ export default {
     };
   },
   created() {
-    // this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
     // 获取ratings评价数据
     this.$http.get("/api/ratings").then(res => {
       if (res.data.errno === ERR_OK) {
