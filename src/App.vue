@@ -20,6 +20,8 @@
 
 <script>
 import Header from "components/header/header";
+// import { urlParse } from "common/js/util";
+
 // 返回数据成功状态码
 const ERR_OK = 0;
 

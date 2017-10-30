@@ -31,10 +31,6 @@
                    </li>
                  </ul>
                </div>
-               <div class="favorite">
-                 <i class="icon-favorite" :class="{'active':collected}" @click="collect"></i>
-                 <span class="text">{{favoriteText}}</span>
-               </div>
             </div>
             <split></split>
             <div class="bulletin">
@@ -50,22 +46,16 @@
               </li>
             </ul>
             <split></split>
-            <div class="pics" >
+            <div class="pics">
               <h2 class="title">商家实景</h2>
-              <div class="pic-wrapper" ref="picWrapper">
-                <ul class="pic-list" ref="picList">
+              <div>
+                <ul class="pic-wrapper">
                  <li class="pic-item" v-for="(pic,index) of seller.pics" :key="index">
                    <img :src="pic" width="120" height="90">
                  </li>
                 </ul>
               </div>
-            </div>
-            <split></split>
-            <div class="info">
-              <h2 class="title">商家信息</h2>
-              <ul>
-                <li class="info-item" v-for="(info,index) of seller.infos" :key="index">{{info}}</li>
-              </ul>
+              
             </div>
         </div>
     </div>
@@ -76,7 +66,6 @@ import BScroll from "better-scroll";
 import Star from "components/star/star";
 // 导入分割组件
 import Split from "components/split/split";
-// import { saveToLocal } from "common/js/store";
 
 export default {
   props: {
@@ -88,20 +77,6 @@ export default {
     Star,
     Split
   },
-  data() {
-    return {
-      collected: false
-    };
-  },
-  computed: {
-    favoriteText() {
-      if (this.collected) {
-        return "已收藏";
-      } else {
-        return "收藏";
-      }
-    }
-  },
   created() {
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
   },
@@ -110,14 +85,12 @@ export default {
     seller() {
       this.$nextTick(() => {
         this._initScroll();
-        this._initPics();
       });
     }
   },
   mounted() {
     this.$nextTick(() => {
       this._initScroll();
-      this._initPics();
     });
   },
   methods: {
@@ -129,32 +102,12 @@ export default {
       } else {
         this.scroll.refresh();
       }
-    },
-    _initPics() {
-      if (this.seller.pics) {
-        let picWidth = 120;
-        let margin = 6;
-        let width = (picWidth + margin) * this.seller.pics.length - margin;
-        this.$refs.picList.style.width = width + "px";
-        this.$nextTick(() => {
-          this.picScroll = new BScroll(this.$refs.picWrapper, {
-            scrollX: true,
-            eventPassthrough: "vertical"
-          });
-        });
-      }
-    },
-    collect() {
-      this.collected = !this.collected;
-      // console.log(this.seller.id);
-      // saveToLocal(this.seller.id, "collected", this.collected);
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "../../common/scss/mixin.scss";
-@import "../../common/scss/icon.scss";
 
 .seller {
   position: absolute;
@@ -167,7 +120,6 @@ export default {
     .overview {
       font-size: 0;
       padding: 0.36rem;
-      position: relative;
       .title {
         font-size: 0.28rem;
         color: rgb(7, 17, 27);
@@ -222,28 +174,6 @@ export default {
               }
             }
           }
-        }
-      }
-      .favorite {
-        position: absolute;
-        top: 0.24rem;
-        right: 0.36rem;
-        width: 0.8rem;
-        text-align: center;
-        i {
-          display: block;
-          font-size: 0.48rem;
-          color: rgb(147, 153, 159);
-          line-height: 0.48rem;
-          margin-bottom: 0.08rem;
-          &.active {
-            color: rgb(240, 20, 20);
-          }
-        }
-        .text {
-          font-size: 0.2rem;
-          color: rgb(77, 85, 93);
-          line-height: 0.2rem;
         }
       }
     }
@@ -310,6 +240,8 @@ export default {
         }
       }
     }
+    .bulletin {
+    }
     .pics {
       padding: 0.36rem 0 0.36rem 0.36rem;
       .title {
@@ -322,38 +254,8 @@ export default {
       .pic-wrapper {
         width: 100%;
         overflow: hidden;
-        white-space: nowrap;
-        .pic-item {
-          display: inline-block;
-          margin-right: 0.12rem;
-          width: 2.4rem;
-          height: 0.9rem;
-          &::last-child {
-            margin: 0;
-          }
-        }
-      }
-    }
-    .info {
-      padding: 0.36rem 0.36rem 0 0.36rem;
-      font-size: 0;
-      .title {
-        font-size: 0.28rem;
-        font-weight: 700;
-        color: rgb(7, 17, 27);
-        line-height: 0.28rem;
-        margin-bottom: 0.24rem;
-      }
-      .info-item {
-        padding: 0.32rem 0.24rem;
-        font-size: 0.24rem;
-        font-weight: 200;
-        color: rgb(7, 17, 27);
-        line-height: 0.32rem;
-        border-top: 1px solid rgba(7, 17, 27, 0.1);
       }
     }
   }
 }
 </style>
-
