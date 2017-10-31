@@ -27,6 +27,7 @@
     </div>
       <div class="ball-container">
         <div v-for="(ball,index) of balls" :key="index">
+          <!-- 过渡需要在内层,直接作用于小球 -->
             <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
               <div  class="ball" v-show="ball.show"> 
                 <div class="inner inner-hook" ref="ballInner"></div>
@@ -152,7 +153,6 @@ export default {
           let rect = ball.el.getBoundingClientRect();
           let x = rect.left - 32;
           let y = -(window.innerHeight - rect.top - 22);
-          console.log(x);
           el.style.display = "";
           // 兼容性写法
           el.style.webkitTransform = `translate3d(0,${y}px,0)`;
@@ -181,7 +181,6 @@ export default {
     },
     // // 结束drop的钩子函数
     afterDrop(el) {
-      console.log(el);
       // 重用小球
       let ball = this.dropBalls.shift();
       if (ball) {
