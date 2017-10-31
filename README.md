@@ -46,6 +46,8 @@ javascript版本：ES6
 ![](./resource/截图/cartControl.png)</br>
 
 >通用js
+
 1.formatDate，处理时间的方法
 >预览
+
 ![](./resource/截图/all.gif)
