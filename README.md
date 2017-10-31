@@ -53,9 +53,11 @@ javascript版本：ES6
 ![](./resource/截图/all.gif)
 >运行
 
-1.开发者模式: npm install<br/>
+1.开发者模式:<br/>
+ npm install<br/>
              npm run dev
 
-2.线上模式: npm install<br/>
+2.线上模式:<br/>
+ npm install<br/>
            npm run build<br/>
            node productServer.js
