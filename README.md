@@ -34,17 +34,18 @@ javascript版本：ES6
 5.cart组件
 >通用组件
 
-1.star评分组件
-![](./resource/截图/star.png)
-2.split组件
-![](./resource/截图/split.png)
-3.ratingSelect组件
-![](./resource/截图/ratingSelect.png)
+1.star评分组件</br>
+![](./resource/截图/star.png)</br>
+2.split组件</br>
+![](./resource/截图/split.png)</br>
 
-4.cartControl组件
-![](./resource/截图/cartControl.png)
+3.ratingSelect组件</br>
+![](./resource/截图/ratingSelect.png)</br>
+
+4.cartControl组件</br>
+![](./resource/截图/cartControl.png)</br>
 
 >通用js
 1.formatDate，处理时间的方法
 >预览
-![](./resource/截图/all.png)
+![](./resource/截图/all.gif)
