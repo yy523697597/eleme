@@ -4,19 +4,47 @@
 这是一个基于Vue2.0，面向移动端的仿饿了么的demo。
 >技术栈
 
-Vue+vue-router+vue-resource+ES6
+MVVM框架：Vue
+
+前端路由：vue-router
+
+数据获取插件：vue-resource
+
+javascript版本：ES6
+
+代码风格检查：ESLint
+
+开发工具：VS Code
+
+其他插件：better-scroll，面向移动端的滑动插件
+
 >概述
 
 使用了Vue进行页面骨架开发，使用vue-router进行前端路由切换，使用vue-resource进行数据获取。使用express搭建后台服务。使用eslint作为js代码风格检测。使用scss作为css预处理工具。
+>业务组件
 
->组件
+1.header组件
 
-现已抽离 star评分组件
+2.goods组件
 
->其他
+3.ratings组件
 
-努力填坑中。。。
+4.seller组件
 
+5.cart组件
+>通用组件
 
-![](https://github.com/yy523697597/eleme/blob/master/resource/%E5%A4%96%E5%8D%9601_%E5%95%86%E5%93%81%E9%A1%B5.jpg?raw=false)
-![](https://github.com/yy523697597/eleme/blob/master/resource/%E5%A4%96%E5%8D%9602_%E5%95%86%E5%93%81%E9%A1%B5_%E5%85%AC%E5%91%8A%E5%8F%8A%E4%BC%98%E6%83%A0%E4%BF%A1%E6%81%AF.jpg?raw=false)
+1.star评分组件
+![](./resource/截图/star.png)
+2.split组件
+![](./resource/截图/split.png)
+3.ratingSelect组件
+![](./resource/截图/ratingSelect.png)
+
+4.cartControl组件
+![](./resource/截图/cartControl.png)
+
+>通用js
+1.formatDate，处理时间的方法
+>预览
+![](./resource/截图/all.png)
