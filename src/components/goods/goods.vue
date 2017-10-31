@@ -35,7 +35,7 @@
                   <span v-if="food.oldPrice" class="oldprice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol @add="addFood" :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -45,7 +45,7 @@
     </div>
     <cart ref="cart" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice" :selectGoods="selectGoods"></cart>
   
-    <food :food="selectedFood" ref="food"></food>
+    <food @add="addFood" :food="selectedFood" ref="food"></food>
 
   </div>
 </template>
@@ -156,40 +156,14 @@ export default {
     },
     // 调用小球掉落动画
     _drop(target) {
-      // 在父组件中调用子组件的方法
-      // this.$refs.cart.drop(target);
+      this.$nextTick(() => {
+        // 在父组件中调用子组件的方法
+        this.$refs.cart.drop(target);
+      });
+    },
+    addFood(target) {
+      this._drop(target);
     }
-    // // 点击添加商品
-    // addFood(foodItem, target) {
-    //   this._drop(target);
-    //   // 用于判断用户添加的商品是否存在
-    //   let flag = false;
-    //   if (this.selectGoods.length === 0) {
-    //     // 如果用户选择商品数组为空就直接添加商品
-    //     this.selectGoods.push(foodItem);
-    //   } else {
-    //     this.selectGoods.forEach(good => {
-    //       if (foodItem.food.name === good.food.name) {
-    //         // 如果已经存在这个商品就更新数据，并且将flag设置为tru，表明商品已经存在
-    //         good = foodItem;
-    //         flag = true;
-    //       }
-    //     });
-    //     // 如果flag在循环后仍然为false，表明此商品不存在与数组中，需要进行添加
-    //     if (flag === false) {
-    //       this.selectGoods.push(foodItem);
-    //     }
-    //   }
-    // }
-    // // 点击减少商品
-    // decreaseFood(foodItem) {
-    //   this.selectGoods.forEach(good => {
-    //     if (foodItem.food.name === good.food.name) {
-    //       // 如果已经存在这个商品就更新数据
-    //       good = foodItem;
-    //     }
-    //   });
-    // }
   },
   data() {
     return {

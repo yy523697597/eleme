@@ -32,13 +32,12 @@ export default {
       } else {
         this.food.count++;
       }
-      this.$emit("addFood", this.food, event.target);
+      this.$emit("add", event.target);
     },
     decreaseCount() {
       if (this.food.count) {
         this.food.count--;
       }
-      // this.$emit("decreaseFood", this.foodItem);
     }
   }
 };

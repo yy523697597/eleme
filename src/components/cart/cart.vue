@@ -25,13 +25,15 @@
         </div>
       </div>
     </div>
-    <!-- <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop"> -->
-      <!-- <div class="ball-container">
-        <div v-for="(ball,index) of balls" :key="index" class="ball" v-show="ball.show"> 
-          <div class="inner inner-hook" ref="ballInner"></div>
+      <div class="ball-container">
+        <div v-for="(ball,index) of balls" :key="index">
+            <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+              <div  class="ball" v-show="ball.show"> 
+                <div class="inner inner-hook" ref="ballInner"></div>
+              </div>
+            </transition>
         </div>
-      </div> -->
-    <!-- </transition> -->
+      </div>
     <transition name="fold">
     <div class="cart-list" v-show="listShow">
       <div class="list-header">
@@ -47,7 +49,7 @@
               <span>￥{{food.price*food.count}}</span>
             </div>
             <div class="cartcontrol-wrapper">
-              <cartcontrol :food="food"></cartcontrol>
+              <cartcontrol @add="addFood" :food="food"></cartcontrol>
             </div>
           </li>
         </ul>
@@ -123,68 +125,70 @@ export default {
         return;
       }
       window.alert(`支付${this.totalPrice + this.deliveryPrice}元`);
-    }
-
-    // // 处理小球掉落动画
-    // drop(el) {
-    //   for (let i = 0; i < this.balls.length; i++) {
-    //     // 找到一个隐藏的小球,将其显示,然后保存,并将它添加到已经下落的小球数组中
-    //     let ball = this.balls[i];
-    //     if (!ball.show) {
-    //       ball.show = true;
-    //       ball.el = el;
-    //       this.dropBalls.push(ball);
-    //       return;
-    //     }
-    //   }
-    // },
-    // // 进入drop的钩子函数
-    // beforeDrop(el) {
-    //   let count = this.balls.length;
-    //   while (count--) {
-    //     let ball = this.balls[count];
-    //     if (ball.show) {
-    //       // 浏览器API,获取小球相对于视口的位置
-    //       let rect = ball.el.getBoundingClientRect();
-    //       let x = rect.left - 32;
-    //       let y = -(window.innerHeight - rect.top - 22);
-    //       console.log(x);
-    //       el.style.display = "";
-    //       // 兼容性写法
-    //       el.style.webkitTransform = `translate3d(0,${y}px,0)`;
-    //       el.style.transform = `translate3d(0,${y}px,0)`;
-    //       // 获取内部小球并且设置样式
-    //       let inner = el.getElementsByClassName("inner-hook")[0];
-    //       inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
-    //       inner.style.transform = `translate3d(${x}px,0,0)`;
-    //     }
-    //   }
-    // },
-    // // 正在drop的钩子函数
-    // dropping(el, done) {
-    //   /* eslint-disable no-unused-vars */
-    //   // 触发浏览器重绘
-    //   let rf = el.offsetHeight;
-    //   this.$nextTick(() => {
-    //     // 在enter的时候将样式重置回来
-    //     el.style.webkitTransform = "translate3d(0,0,0)";
-    //     el.style.transform = "translate3d(0,0,0)";
-    //     let inner = el.getElementsByClassName("inner-hook")[0];
-    //     inner.style.webkitTransform = "translate3d(0,0,0)";
-    //     inner.style.transform = "translate3d(0,0,0)";
-    //     el.addEventListener("transitionend", done);
-    //   });
-    // },
+    },
+    addFood(target) {
+      this.drop(target);
+    },
+    // 处理小球掉落动画
+    drop(el) {
+      for (let i = 0; i < this.balls.length; i++) {
+        // 找到一个隐藏的小球,将其显示,然后保存,并将它添加到已经下落的小球数组中
+        let ball = this.balls[i];
+        if (!ball.show) {
+          ball.show = true;
+          ball.el = el;
+          this.dropBalls.push(ball);
+          return;
+        }
+      }
+    },
+    // 进入drop的钩子函数
+    beforeDrop(el) {
+      let count = this.balls.length;
+      while (count--) {
+        let ball = this.balls[count];
+        if (ball.show) {
+          // 浏览器API,获取小球相对于视口的位置
+          let rect = ball.el.getBoundingClientRect();
+          let x = rect.left - 32;
+          let y = -(window.innerHeight - rect.top - 22);
+          console.log(x);
+          el.style.display = "";
+          // 兼容性写法
+          el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+          el.style.transform = `translate3d(0,${y}px,0)`;
+          // 获取内部小球并且设置样式
+          let inner = el.getElementsByClassName("inner-hook")[0];
+          inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+          inner.style.transform = `translate3d(${x}px,0,0)`;
+        }
+      }
+    },
+    // 正在drop的钩子函数
+    dropping(el, done) {
+      /* eslint-disable no-unused-vars */
+      // 触发浏览器重绘
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        // 在enter的时候将样式重置回来
+        el.style.webkitTransform = "translate3d(0,0,0)";
+        el.style.transform = "translate3d(0,0,0)";
+        let inner = el.getElementsByClassName("inner-hook")[0];
+        inner.style.webkitTransform = "translate3d(0,0,0)";
+        inner.style.transform = "translate3d(0,0,0)";
+        el.addEventListener("transitionend", done);
+      });
+    },
     // // 结束drop的钩子函数
-    // afterDrop(el) {
-    //   console.log(el);
-    //   // 重用小球
-    //   let ball = this.dropBalls.shift();
-    //   if (ball) {
-    //     ball.show = false;
-    //     el.style.display = "none";
-    //   }
-    // }
+    afterDrop(el) {
+      console.log(el);
+      // 重用小球
+      let ball = this.dropBalls.shift();
+      if (ball) {
+        ball.show = false;
+        el.style.display = "none";
+      }
+    }
   },
   props: {
     // 配送费

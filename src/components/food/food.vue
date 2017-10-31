@@ -21,7 +21,7 @@
             <span class="old-price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
          <div class="cartcontrol-wrapper">
-            <cartcontrol :food="food"></cartcontrol>
+            <cartcontrol @add="addFood" :food="food"></cartcontrol>
          </div> 
          <transition name="fade">
             <div class="buy" v-show="!food.count||food.count === 0" @click.stop.prevent="addFirst">加入购物车</div>
@@ -127,6 +127,10 @@ export default {
     // 点击加入购物车
     addFirst() {
       Vue.set(this.food, "count", 1);
+      this.$emit("add", event.target);
+    },
+    addFood(target) {
+      this.$emit("add", target);
     },
     // 监听子组件的改变商品评价类型的事件
     changeType(type) {
