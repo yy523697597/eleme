@@ -132,11 +132,15 @@ export default {
     },
     _initPics() {
       if (this.seller.pics) {
+        // 先确定每张图片的宽度和间距
         let picWidth = 120;
         let margin = 6;
+        // 然后计算图片总的宽度
         let width = (picWidth + margin) * this.seller.pics.length - margin;
+        // 设置容器宽度
         this.$refs.picList.style.width = width + "px";
         this.$nextTick(() => {
+          // 初始化scroll的时候,需要开启scrollX的选项,同时允许其他scroll的纵向滑动
           this.picScroll = new BScroll(this.$refs.picWrapper, {
             scrollX: true,
             eventPassthrough: "vertical"
