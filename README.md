@@ -61,3 +61,7 @@ javascript版本：ES6
  npm install<br/>
            npm run build<br/>
            node productServer.js
+
+>项目总结
+
+![](./resource/Vue高仿饿了么项目总结.png)
