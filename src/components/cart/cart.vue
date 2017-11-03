@@ -168,6 +168,7 @@ export default {
     dropping(el, done) {
       /* eslint-disable no-unused-vars */
       // 触发浏览器重绘
+      // 测量元素会导致元素强制重排
       let rf = el.offsetHeight;
       this.$nextTick(() => {
         // 在enter的时候将样式重置回来
